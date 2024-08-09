@@ -42,8 +42,9 @@ public class Form extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("desc", desc);
+
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
     }
 }
