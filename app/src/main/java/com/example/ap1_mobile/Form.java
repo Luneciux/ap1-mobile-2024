@@ -29,6 +29,8 @@ public class Form extends AppCompatActivity {
             return insets;
         });
 
+        initDb();
+
         EditText title = findViewById(R.id.title);
         EditText desc = findViewById(R.id.desc);
 
