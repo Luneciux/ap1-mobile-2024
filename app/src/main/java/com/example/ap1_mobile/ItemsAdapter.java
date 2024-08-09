@@ -64,8 +64,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemsViewHol
         public void bind(Task item, int i) {
             txtTitle.setText(item.title);
             txtDesc.setText(item.desc);
-            String slug = item.title.substring(0, 1);
-            icon.setText(slug);
             index = i;
         }
     }

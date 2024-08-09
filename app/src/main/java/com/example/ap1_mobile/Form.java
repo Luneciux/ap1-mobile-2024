@@ -11,8 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
 
 public class Form extends AppCompatActivity {
+
+    AppDatabase db;
+    TaskDAO taskDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +43,27 @@ public class Form extends AppCompatActivity {
     }
 
     public void handleSubmit (String title, String desc){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(Form.this, MainActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("desc", desc);
 
+        Task item = new Task(title, desc);
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        taskDAO.insertAll(item);
+
         startActivity(intent);
+    }
+
+    void initDb(){
+        this.db = Room.databaseBuilder(
+                        this,
+                        AppDatabase.class,
+                        "db-task"
+                ).enableMultiInstanceInvalidation()
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build();
+
+        this.taskDAO = db.taskDao();
     }
 }
